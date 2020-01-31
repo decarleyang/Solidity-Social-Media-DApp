@@ -22,10 +22,20 @@ class App extends Component {
   }
 
   async loadBlochainData() {
-    const web3 = window.web3;
-    //Load account
-    const accounts = await web3.eth.getAccounts();
-    console.log(accounts);
+    if (window.ethereum) {
+      const web3 = window.web3;
+      //Load account
+      const accounts = await web3.eth.getAccounts();
+      console.log(accounts);
+      this.setState({ account: accounts[0] });
+    } else {
+      window.alert("Non-Ethereum Wallet detected. Can't read the address!");
+    }
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = { account: "" };
   }
 
   render() {
@@ -40,6 +50,25 @@ class App extends Component {
           >
             CAN Social Network
           </a>
+          <ul className="navbar-nav px-3">
+            <li className="nav-item text-nowrap d-none d-sm-nome d-sm-block">
+              <small id="acount" className="font-wh">
+                Your Address: {this.state.account}
+              </small>
+              {this.props.acount ? (
+                <img
+                  className="ml-2"
+                  width="30"
+                  height="30"
+                  src={
+                    "data:image/png;base64,${new Identicon(this.props.acount, 30).toString()}"
+                  }
+                />
+              ) : (
+                <span></span>
+              )}
+            </li>
+          </ul>
         </nav>
         <div className="container-fluid mt-5">
           <div className="row">
