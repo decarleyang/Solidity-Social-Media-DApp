@@ -38,6 +38,7 @@ contract("SocialNetwork", ([depoyer, author, tipper]) => {
     it("creates posts", async () => {
       //sucess
       assert.equal(postCount, 1);
+      console.log("result", result);
       const event = result.logs[0].args;
       assert.equal(event.id.toNumber(), postCount.toNumber(), "id is correct");
       assert.equal(
