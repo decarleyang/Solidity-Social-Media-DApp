@@ -13,11 +13,20 @@ class Main extends Component {
             <div className="content mr-auto ml-auto">
               <h1>DApp Social Network</h1>
 
-              <form>
+              <form
+                onSubmit={event => {
+                  event.preventDefault();
+                  const content = this.postContent.value;
+                  this.props.createPost(content);
+                }}
+              >
                 <div className="form-group mr-sm-2">
                   <input
                     id="postContent"
                     type="text"
+                    ref={input => {
+                      this.postContent = input;
+                    }}
                     className="form-control"
                     placeholder="what's on your mind?"
                     required
