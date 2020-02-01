@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Identicon from "identicon.js";
 
 class Navbar extends Component {
   render() {
@@ -23,7 +24,7 @@ class Navbar extends Component {
                 width="30"
                 height="30"
                 src={
-                  "data:image/png;base64,${new Identicon(this.props.acount, 30).toString()}"
+                  "data:image/png,base64,${new Identicon(this.props.acount, 30).toString()}"
                 }
               />
             ) : (

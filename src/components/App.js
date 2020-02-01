@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import Web3 from "web3";
 import "./App.css";
 import SocialNetwork from "../abis/SocialNetwork.json";
+import Identicon from "identicon.js";
 import Navbar from "./Navbar";
+import Main from "./Main";
 
 class App extends Component {
   async componentWillMount() {
@@ -54,6 +56,7 @@ class App extends Component {
           });
         }
         console.log("posts", { posts: this.state.posts });
+        this.setState({ loading: false });
       } else {
         window.alert(
           "Social Netowrk contract not deployed to detected network"
@@ -72,7 +75,8 @@ class App extends Component {
       account: "",
       socialNetwork: null,
       postCount: 0,
-      posts: []
+      posts: [],
+      loading: true
     };
   }
 
@@ -80,36 +84,13 @@ class App extends Component {
     return (
       <div>
         <Navbar account={this.state.account} />
-        <div className="container-fluid mt-5">
-          <div className="row">
-            <main
-              role="main"
-              className="col-lg-12 ml-auto mr-auto"
-              style={{ maxWidth: "500px" }}
-            >
-              <div className="content mr-auto ml-auto">
-                <h1>CAN Social Network</h1>
-                {this.state.posts.map((post, key) => {
-                  return (
-                    <div className="card mb-4" key={key}>
-                      <div className="card-header">
-                        <small className="text-muted">Post Header</small>
-                      </div>
-                      <ul id="postList" className="list-group list-group-flush">
-                        <li className="list-group-item">
-                          <p>Post Body</p>
-                        </li>
-                        <li key={key} className="list-group-item py-2">
-                          <p>Post Footer</p>
-                        </li>
-                      </ul>
-                    </div>
-                  );
-                })}
-              </div>
-            </main>
+        {this.state.loading ? (
+          <div id="loader" className="text-center mt-5">
+            <p>Loading...</p>
           </div>
-        </div>
+        ) : (
+          <Main posts={this.state.posts} />
+        )}
       </div>
     );
   }
