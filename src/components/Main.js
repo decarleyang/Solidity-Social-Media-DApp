@@ -45,6 +45,7 @@ class Main extends Component {
                         {" "}
                         {this.props.acount ? (
                           <img
+                            alt="User Image"
                             className="ml-2"
                             width="30"
                             height="30"
@@ -71,8 +72,18 @@ class Main extends Component {
                           )}{" "}
                           ETH
                         </small>
-                        <button className="btn btn-link btn-sm float-right pt-0">
-                          <span>Tip 0.1 ETH</span>
+                        <button
+                          className="btn btn-link btn-sm float-right pt-0"
+                          name={post.id}
+                          onClick={event => {
+                            let tipAmount = window.web3.utils.toWei(
+                              "0.1",
+                              "Ether"
+                            );
+                            this.props.tipPost(event.target.name, tipAmount);
+                          }}
+                        >
+                          Tip 0.1 ETH
                         </button>
                       </li>
                     </ul>
